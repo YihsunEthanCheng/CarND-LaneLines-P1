@@ -83,12 +83,14 @@ Step 10. Weighted image
 
 ### 2. Identify potential shortcomings with your current pipeline
 
-* One observed problem is that each line in the images will be extracted into parallel edges. This could be solved by adding one extra step in the piepine during the ransac which chooses top two lien candidate in LEFT/RIGHT and merges them into single lines if found parallel.
+* One observed problem is that each line in an input image will be extracted into parallel lines. Since only one line in one LEFT/RIGHT is selected, the selected line could be inside or outside edge of the line. This causes flickering in the video as the line could be swtiching in between in consecutive frames.
 
 * As stated, the current implementation uses only first order equation, which would fail to find curves as appearing in the challenge video.
 
 
 ### 3. Suggest possible improvements to your pipeline
+
+* The line flickering problem could be solved by adding one extra step in the piepine during the ransac which chooses top two line candidates in one side and merges them into a single line if found parallel.
 
 * With one extra variable in the ransac, the pipeline will be robust to "turning" lanes with curvatures.
 
