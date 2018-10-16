@@ -35,7 +35,7 @@ Step 1. grayscale
   * Convert the image from color to grayscale image.
 
 Step 2. Gaussian blur 
-  * Remove noise with 3x3 patch.
+  * Remove noise with 3x3 kernel.
 
 Step 3. Canny edge extractor 
   * Extract edges from denoised grayscale image.
@@ -55,9 +55,9 @@ Step 5. Hough transform
 ![alt text][image3]
 
 
-Step 6. My_ransac
-  * A simple ransac to find the dominant line models as the LEFT/RIGHT lane. This mini ransac use the first order normal euquation to find the least square error solution for each line candidate. The fitness is computed by the length of each recruited line segment. The longest line model wins and gets selected to removed most of noisy lines espeically appearing near the center of the image.
-  * The advantage for this implementation is that it is easy to be upgraded to detect 2nd order polynomial curve, which appears in the challenge video clip.  
+Step 6. Ransac
+  * A simple ransac to find the dominant models as the LEFT/RIGHT lines. This ransac uses all line models deteced from Hough transform and find the line candidate via least square error solution. The fitness is computed by the length of each recruited line segment. The longest line model wins out and gets selected to removed most of noisy lines espeically appearing near the center of the image.
+  * The advantage for this implementation is that it can be easy upgraded to detect polynomials, which appears in the challenge video clip.  
 
 ![alt text][image4]
 
@@ -65,7 +65,7 @@ Step 7. Line segments to points conversion
   * Converted list of lines into list of points so that segments of dashed lines will be connected.
 
 Step 8. Add endpoints
-  * Added endpoints to stretch the detected lines to the boudary within the ROI. This will ensure the lans starts at the bottom of the image and ends near the center of the image.
+  * Added end points to stretch the detected lines to the boudary within the ROI. This will ensure the lane starts at the bottom of the image and ends near the center of the image (stretched to ROI).
 
 ![alt text][image5]
 
